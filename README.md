@@ -1,4 +1,4 @@
-# Synquo — Vite + React + Tailwind CSS v4
+# Synqvo — Vite + React + Tailwind CSS v4
 
 A modern, high-performance web development workspace built with Vite, React 19, and Tailwind CSS v4.
 
