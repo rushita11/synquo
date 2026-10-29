@@ -1,10 +1,16 @@
 import LoadingScreen from './components/LoadingScreen';
 import HeroSection from './components/HeroSection';
+import LogoSliderSection from './components/LogoSliderSection';
+import ManifestoSection from './components/ManifestoSection';
+import WorkSection from './components/WorkSection';
+import WorthBuildingSection from './components/WorthBuildingSection';
+import ContactFaqSection from './components/contact/ContactFaqSection';
 import StickyBottomMenu from './components/StickyBottomMenu';
 
 /**
  * Main Application Component
- * Assembles LoadingScreen, HeroSection, and sticky bottom navigation.
+ * Assembles LoadingScreen, HeroSection, LogoSliderSection, ManifestoSection,
+ * WorkSection, WorthBuildingSection, ContactFaqSection, and sticky bottom navigation.
  */
 export default function App() {
   return (
@@ -15,7 +21,11 @@ export default function App() {
       {/* Main Content Area */}
       <main id="main-content">
         <HeroSection />
-        {/* Additional sections can be added here in the future */}
+        <LogoSliderSection />
+        <ManifestoSection />
+        <WorkSection />
+        <WorthBuildingSection />
+        <ContactFaqSection />
       </main>
 
       {/* Sticky Bottom Navigation for all sections */}
