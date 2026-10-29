@@ -39,7 +39,7 @@ export default function WorthBuildingSection() {
     <section
       id="talk-section"
       ref={sectionRef}
-      className="w-full px-4 sm:px-6 lg:px-[15px] mb-28 md:mb-36 relative z-10 select-none"
+      className="w-full px-4 sm:px-6 lg:px-[15px] mb-4 relative z-10 select-none"
       aria-label="Have something worth building call to action"
     >
       <div
