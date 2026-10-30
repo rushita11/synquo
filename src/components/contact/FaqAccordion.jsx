@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+const plusImg = '/assets/images/plus.png';
+const minusImg = '/assets/images/minus.svg';
+
 const FAQ_ITEMS = [
   {
     id: '01',
@@ -59,12 +62,10 @@ export default function FaqAccordion() {
 
   return (
     <div className="faq-accordion-wrapper w-full h-full bg-[#FAF6EE] p-7 sm:p-10 md:p-14 lg:p-16 flex flex-col justify-start select-none">
-      {/* Column Heading */}
-      <h2 className="font-serif text-[#092521] text-[34px] sm:text-[44px] md:text-[52px] leading-[1.15] font-normal tracking-tight mb-8 sm:mb-12">
+      {/* Column Heading with fluid clamp */}
+      <h2 className="contact-faq-heading mb-8 sm:mb-12">
         A Few Things to Know.
       </h2>
-
-      {/* Accordion Items List */}
       <div className="faq-list flex flex-col">
         {FAQ_ITEMS.map((item) => {
           const isOpen = openId === item.id;
@@ -81,32 +82,35 @@ export default function FaqAccordion() {
                 aria-controls={`faq-answer-${item.id}`}
               >
                 <div className="flex items-baseline gap-2 sm:gap-3">
-                  <span className="font-serif text-[#092521] text-[20px] sm:text-[23px] md:text-[25px] font-normal tracking-tight">
+                  <span className="faq-question-num">
                     {item.number}
                   </span>
-                  <span className="font-serif text-[#092521] text-[20px] sm:text-[23px] md:text-[25px] font-normal tracking-tight group-hover:opacity-85 transition-opacity">
+                  <span className="faq-question-text group-hover:opacity-85 transition-opacity">
                     {item.question}
                   </span>
                 </div>
 
-                {/* Toggle Symbol: Minus (—) when open, Plus (+) when closed */}
                 <span
-                  className="text-[#092521] text-[24px] sm:text-[28px] font-light leading-none select-none transition-transform duration-200 shrink-0 ml-2"
+                  className="shrink-0 ml-2 flex items-center justify-center select-none"
                   aria-hidden="true"
                 >
-                  {isOpen ? '—' : '+'}
+                  <img
+                    src={isOpen ? minusImg : plusImg}
+                    alt={isOpen ? 'Collapse answer' : 'Expand answer'}
+                    className="w-[15px] h-[15px] sm:w-[22px] sm:h-[22px] object-contain transition-transform duration-200"
+                    draggable={false}
+                  />
                 </span>
               </button>
 
               {/* Collapsible Answer */}
               <div
                 id={`faq-answer-${item.id}`}
-                className={`grid transition-all duration-300 ease-in-out ${
-                  isOpen ? 'grid-rows-[1fr] opacity-100 mt-2 sm:mt-3' : 'grid-rows-[0fr] opacity-0'
-                }`}
+                className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-2 sm:mt-3' : 'grid-rows-[0fr] opacity-0'
+                  }`}
               >
                 <div className="overflow-hidden">
-                  <p className="font-sans text-[14px] sm:text-[15px] md:text-[16px] text-[#475569] leading-relaxed pr-6 sm:pr-8">
+                  <p className="faq-answer-text pr-6 sm:pr-8">
                     {item.answer}
                   </p>
                 </div>

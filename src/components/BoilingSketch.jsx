@@ -10,6 +10,8 @@ function createRoughEllipseFrames({
   height,
   padX,
   padY,
+  widthOffset = 0,
+  heightOffset = 0,
   seed = 1,
   frameCount = 3,
   color = '#FFE100',
@@ -17,12 +19,14 @@ function createRoughEllipseFrames({
   roughness = 1.45,
   bowing = 1.15,
 }) {
-  const totalW = Math.max(1, Math.round(width + padX * 2));
-  const totalH = Math.max(1, Math.round(height + padY * 2));
+  const extraW = Math.max(0, widthOffset);
+  const extraH = Math.max(0, heightOffset);
+  const totalW = Math.max(1, Math.round(width + padX * 2 + extraW));
+  const totalH = Math.max(1, Math.round(height + padY * 2 + extraH));
   const cx = totalW / 2;
   const cy = totalH / 2;
-  const rx = Math.max(1, width + padX * 1.3);
-  const ry = Math.max(1, height + padY * 1.35);
+  const rx = Math.max(1, width + padX * 1.3 + widthOffset);
+  const ry = Math.max(1, height + padY * 1.35 + heightOffset);
 
   const gen = rough.generator();
   const frames = [];
@@ -48,8 +52,8 @@ function createRoughEllipseFrames({
       d,
       width: totalW,
       height: totalH,
-      padX,
-      padY,
+      padX: padX + Math.round(extraW / 2),
+      padY: padY + Math.round(extraH / 2),
     });
   }
 
@@ -75,6 +79,8 @@ export default function BoilingSketch({
   seed = 42,
   paddingX,
   paddingY,
+  widthOffset = 0,
+  heightOffset = 0,
   className = '',
 }) {
   const textRef = useRef(null);
@@ -126,12 +132,14 @@ export default function BoilingSketch({
       height: h,
       padX,
       padY,
+      widthOffset,
+      heightOffset,
       seed,
       frameCount: 3,
       color,
       strokeWidth,
     });
-  }, [dimensions.width, dimensions.height, padX, padY, seed, color, strokeWidth]);
+  }, [dimensions.width, dimensions.height, padX, padY, widthOffset, heightOffset, seed, color, strokeWidth]);
 
   // Measure path length for stroke-dashoffset animation
   useEffect(() => {
@@ -199,9 +207,8 @@ export default function BoilingSketch({
       {/* Hand-Drawn Continuous Boiling Circle SVG */}
       {currentFrame && (
         <svg
-          className={`boiling-sketch-svg absolute pointer-events-none ${
-            isDrawn ? 'is-boiling' : ''
-          }`}
+          className={`boiling-sketch-svg absolute pointer-events-none ${isDrawn ? 'is-boiling' : ''
+            }`}
           style={{
             left: -currentFrame.padX,
             top: -currentFrame.padY,

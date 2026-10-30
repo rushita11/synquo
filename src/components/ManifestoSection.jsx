@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import BoilingSketch from './BoilingSketch';
 
-const redBgImg = '/assets/images/red-bg.png';
 const leftHandImg = '/assets/images/left-hand.png';
 const rightHandImg = '/assets/images/right-hand.png';
 
@@ -43,19 +42,13 @@ export default function ManifestoSection() {
 
   return (
     <section
-      id="manifesto-section"
+      id="about"
       ref={sectionRef}
       className="w-full px-4 sm:px-6 lg:px-[15px] mb-4 relative z-10 select-none"
       aria-label="Creative Philosophy Manifesto"
     >
       <div
-        className="manifesto-card max-w-[1674px] mx-auto relative rounded-[24px] sm:rounded-[28px] md:rounded-[33px] overflow-hidden min-h-[380px] sm:min-h-[440px] md:min-h-[510px] flex items-center justify-center p-6 sm:p-10 md:p-16"
-        style={{
-          backgroundImage: `url(${redBgImg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundColor: '#b91c1c',
-        }}
+        className="manifesto-card w-full mx-auto relative rounded-[24px] sm:rounded-[28px] md:rounded-[33px] overflow-hidden min-h-[380px] sm:min-h-[440px] md:min-h-[510px] flex items-center justify-center p-6 sm:p-10 md:p-16"
       >
         {/* Decorative Renaissance Left Hand (Enters from Left, then continues floating) */}
         <div
@@ -67,7 +60,7 @@ export default function ManifestoSection() {
             <img
               src={leftHandImg}
               alt="Artistic Renaissance left hand reaching toward manifesto"
-              className="w-[170px] sm:w-[230px] md:w-[320px] lg:w-[370px] h-auto object-contain select-none"
+              className="w-[180px] sm:w-[240px] md:w-[330px] lg:w-[390px] h-auto object-contain select-none"
               loading="lazy"
               draggable={false}
             />
@@ -92,22 +85,24 @@ export default function ManifestoSection() {
         </div>
 
         {/* Central Manifesto Copy */}
-        <div className="manifesto-content relative z-20 max-w-[1100px] mx-auto text-center px-4 sm:px-6">
-          <h2 className="manifesto-title font-serif text-[#F9EED6] text-[28px] sm:text-[38px] md:text-[50px] lg:text-[62px] leading-[1.25] tracking-tight font-normal">
+        <div className="manifesto-content relative z-20 max-w-[1450px] w-full mx-auto text-center px-4 sm:px-6">
+          <h2 className="manifesto-title text-[#FFE76E]">
             <span className="block mb-2 md:mb-3">
-              We don&apos;t just{' '}
+              We don&apos;t just{'  '}
               <BoilingSketch
                 inView={isInView}
                 delay={100}
                 duration={480}
                 fps={7}
                 seed={108}
-                color="#FFE100"
-                strokeWidth={2.6}
+                color="#FFE76E"
+                strokeWidth={1.3}
+                widthOffset={26}
+                heightOffset={-14}
               >
-                make
-              </BoilingSketch>{' '}
-              things look good.
+                make {'  '}
+              </BoilingSketch>
+              {'  '}things look good.
             </span>
 
             <span className="block">
@@ -118,8 +113,8 @@ export default function ManifestoSection() {
                 duration={520}
                 fps={7}
                 seed={205}
-                color="#FFE100"
-                strokeWidth={2.6}
+                color="#FFE76E"
+                strokeWidth={1.3}
               >
                 something.
               </BoilingSketch>

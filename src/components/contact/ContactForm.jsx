@@ -160,8 +160,8 @@ export default function ContactForm() {
 
   return (
     <div className="contact-form-wrapper w-full h-full bg-white p-7 sm:p-10 md:p-14 lg:p-16 flex flex-col justify-start">
-      {/* Column Heading */}
-      <h2 className="font-serif text-[#092521] text-[34px] sm:text-[44px] md:text-[52px] leading-[1.15] font-normal tracking-tight mb-8 sm:mb-10">
+      {/* Column Heading with fluid clamp */}
+      <h2 className="contact-faq-heading mb-8 sm:mb-10">
         Let&apos;s Make Your Idea Real.
       </h2>
 
@@ -336,11 +336,10 @@ export default function ContactForm() {
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
-            className={`relative rounded-[8px] transition-all pb-2 ${
-              isDragging
-                ? 'border-2 border-dashed border-[#4F46E5] bg-[#EEF2FF]/40'
-                : 'border-b border-[#CBD5E1]'
-            }`}
+            className={`relative rounded-[8px] transition-all pb-2 ${isDragging
+              ? 'border-2 border-dashed border-[#4F46E5] bg-[#EEF2FF]/40'
+              : 'border-b border-[#CBD5E1]'
+              }`}
           >
             <textarea
               id="projectBrief"
@@ -497,7 +496,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={formik.isSubmitting}
-            className="w-[170px] sm:w-[190px] py-3.5 bg-[#601228] hover:bg-[#4a0d1e] active:bg-[#380a16] text-[#F9EED6] font-serif text-[20px] sm:text-[22px] rounded-[4px] shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="contact-submit-btn w-[170px] sm:w-[190px] py-3.5 bg-[#601228] hover:bg-[#4a0d1e] active:bg-[#380a16] text-[#F9EED6] rounded-[4px] shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {formik.isSubmitting ? 'Submitting...' : 'Submit'}
           </button>

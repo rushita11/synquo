@@ -45,7 +45,7 @@ export default function LogoSliderSection() {
       aria-label="Partner & Client Logos"
     >
       <div
-        className="max-w-[1674px] mx-auto clients-slider-wrapper bg-[#F4F2D9] py-4 md:py-6 px-4 md:px-8 overflow-hidden"
+        className="w-full mx-auto clients-slider-wrapper bg-[#F4F2D9] py-4 md:py-6 px-4 md:px-8 overflow-hidden"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >

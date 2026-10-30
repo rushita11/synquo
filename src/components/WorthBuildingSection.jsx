@@ -43,16 +43,16 @@ export default function WorthBuildingSection() {
       aria-label="Have something worth building call to action"
     >
       <div
-        className="worth-building-card max-w-[1674px] mx-auto relative rounded-[24px] sm:rounded-[28px] md:rounded-[33px] overflow-hidden min-h-[460px] sm:min-h-[520px] md:min-h-[580px] lg:min-h-[615px] flex flex-col items-center justify-center pt-14 pb-14 px-6 sm:px-10"
+        className="worth-building-card w-full mx-auto relative rounded-[24px] sm:rounded-[28px] md:rounded-[33px] overflow-hidden min-h-[460px] sm:min-h-[520px] md:min-h-[580px] lg:min-h-[615px] flex flex-col items-center justify-center pt-14 pb-14 px-6 sm:px-10"
       >
         <div
-          className={`relative z-20 max-w-[1100px] mx-auto text-center flex flex-col items-center transition-all duration-700 ease-out ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          className={`relative z-20 max-w-[1250px] w-full mx-auto text-center flex flex-col items-center transition-all duration-700 ease-out ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
         >
-          <h2 className="font-serif text-[#601228] text-[36px] sm:text-[48px] md:text-[62px] lg:text-[76px] leading-[1.12] tracking-tight font-normal text-center mb-3 sm:mb-4">
+          <h2 className="worth-building-heading mb-3 sm:mb-4">
             Have something worth building?
           </h2>
-          <p className="text-[#601228] font-sans text-[15px] sm:text-[17px] md:text-[19px] lg:text-[21px] leading-[1.5] max-w-[850px] text-center font-normal opacity-95 mb-7 sm:mb-9 px-2">
+          <p className="worth-building-desc max-w-[850px] font-normal opacity-95 mb-7 sm:mb-9 px-2">
             Bring us the idea, the challenge, or even the question you haven&apos;t figured out yet.
             Let&apos;s find the right way forward.
           </p>
@@ -60,7 +60,7 @@ export default function WorthBuildingSection() {
             <a
               id="worth-building-talk-btn"
               href="#book"
-              className="inline-flex items-center justify-center bg-[#601228] hover:bg-[#4a0d1e] text-[#F9EED6] font-serif text-[18px] sm:text-[21px] px-8 sm:px-11 py-3 sm:py-3.5 transition-all duration-200 tracking-wide cursor-pointer"
+              className="worth-building-btn inline-flex items-center justify-center bg-[#601228] hover:bg-[#4a0d1e] text-[#F9EED6] px-8 sm:px-11 py-3 sm:py-3.5 transition-all duration-200 cursor-pointer"
               role="button"
             >
               Let&apos;s Talk
