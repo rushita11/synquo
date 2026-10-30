@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 const footerLogoImg = '/assets/images/footer-logo.png';
+const footerStair = '/assets/images/footer-stair.png';
 
 // Social links configuration with keyboard keycap styling matching the design
 const SOCIAL_KEYS = [
@@ -189,7 +190,7 @@ export default function FooterSection() {
     <footer
       id="footer"
       ref={footerRef}
-      className="footer-wrapper"
+      className="footer-wrapper mb-4"
       aria-label="Site Footer"
     >
       <div className={`footer-card ${isCardVisible ? 'is-visible' : ''} ${isLogoVisible ? 'is-fully-visible' : ''}`}>
@@ -221,7 +222,13 @@ export default function FooterSection() {
             </a>
           ))}
         </div> */}
-
+        <img
+          src={footerStair}
+          alt="Synquo Logo"
+          className="footer-stair-img"
+          loading="lazy"
+          draggable={false}
+        />
         <div className={`footer-logo-wrapper ${isLogoVisible ? 'is-visible' : ''}`}>
           <img
             src={footerLogoImg}

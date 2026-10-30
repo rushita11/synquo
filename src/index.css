@@ -1100,6 +1100,14 @@ h6 {
   will-change: transform, opacity;
 }
 
+.footer-stair-img {
+  position: absolute;
+  bottom: 0px;
+  width: 103%;
+  max-width: initial;
+  z-index: 9;
+}
+
 @media (min-width: 640px) {
   .footer-card {
     border-radius: 28px;
@@ -1127,6 +1135,7 @@ h6 {
   transform: translate3d(0, 0, 0);
   opacity: 1;
 }
+
 
 /* 3D Keyboard Social Dock */
 .footer-social-dock {
@@ -1258,8 +1267,8 @@ h6 {
 }
 
 .footer-logo-img {
-  width: 92%;
-  max-width: 1280px;
+  /* width: 92%; */
+  max-width: 1050px;
   height: auto;
   object-fit: contain;
   display: block;

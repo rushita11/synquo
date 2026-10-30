@@ -97,7 +97,7 @@ export default function FaqAccordion() {
                   <img
                     src={isOpen ? minusImg : plusImg}
                     alt={isOpen ? 'Collapse answer' : 'Expand answer'}
-                    className="w-[15px] h-[15px] sm:w-[22px] sm:h-[22px] object-contain transition-transform duration-200"
+                    className="w-[15px] h-[15px] sm:w-[18px] sm:h-[18px] object-contain transition-transform duration-200"
                     draggable={false}
                   />
                 </span>
