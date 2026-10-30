@@ -1397,6 +1397,8 @@ h6 {
 
 /* Work Section Card & Project Items */
 
+/* Work Section Card & Project Items */
+
 .work-card {
 
   background-image: url('/assets/images/work-bg.png');
@@ -1631,9 +1633,8 @@ h6 {
   color: #092521;
 }
 
-.work-card-stagger-1.is-visible {
-  animation-delay: 160ms;
-}
+/* [WORKSECTION CHANGE] .work-card-stagger-1.is-visible removed — stagger is now
+   an inline animationDelay style inside WorkSection.jsx (index % 2 === 1 cards). */
 
 /* Worth Building Section */
 .worth-building-heading {
