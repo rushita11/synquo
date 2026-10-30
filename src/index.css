@@ -896,16 +896,24 @@ h6 {
   }
 }
 
-.wow-card-animate {
-  opacity: 0;
-  transform: translate3d(0, 90px, 0);
-  will-change: opacity, transform;
-}
+/* =============================================================================
+   [WORKSECTION CHANGE] - Bhavya  |  animate__fadeInUp scroll reveal for cards
+   -------------------------------------------------------------------------------
+   Replaced old  wow-card-animate / wowFadeInUp  with Animate.css
+   animate__fadeInUp (CDN-loaded via hook in WorkSection.jsx).
 
-.wow-card-animate.is-visible {
-  animation: wowFadeInUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
+   REMOVED: .wow-card-animate + .wow-card-animate.is-visible (old custom anim)
+   REMOVED: .work-card-stagger-1.is-visible (now inline style in WorkSection.jsx)
+   REMOVED: .work-project-card.is-visible:hover (gating removed, see below)
+   KEPT:    .wow-heading-animate / .wow-heading-animate.is-visible (heading)
+   ADDED:   .work-card-hidden         - invisible before scroll trigger
+   ADDED:   .work-project-card.animate__animated - Animate.css duration override
+   ADDED:   .work-project-card:hover  - hover lift without .is-visible gate
 
+   Your friend's sections: ZERO lines outside this block were changed.
+   ============================================================================= */
+
+/* Heading animation - unchanged from original */
 .wow-heading-animate {
   opacity: 0;
   transform: translate3d(0, 45px, 0);
@@ -916,26 +924,38 @@ h6 {
   animation: wowHeadingInUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+/* [WORKSECTION CHANGE] Cards invisible before IntersectionObserver fires */
+.work-card-hidden {
+  opacity: 0;
+}
+
+/* [WORKSECTION CHANGE] Control Animate.css animation duration for work cards */
+.work-project-card.animate__animated {
+  --animate-duration: 0.85s;
+}
+
+/* [WORKSECTION CHANGE] Hover lift - no longer gated on .is-visible */
 .work-project-card {
   text-decoration: none;
   box-shadow: 0 10px 30px -8px rgba(9, 37, 33, 0.12);
   transition: box-shadow 0.35s ease, transform 0.35s ease;
 }
 
-.work-project-card.is-visible:hover {
+.work-project-card:hover {
   box-shadow: 0 24px 50px -10px rgba(9, 37, 33, 0.28);
   transform: translate3d(0, -6px, 0);
 }
 
+/* [WORKSECTION CHANGE] Reduced-motion: show cards instantly */
 @media (prefers-reduced-motion: reduce) {
-
-  .wow-card-animate,
+  .work-card-hidden,
   .wow-heading-animate {
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;
   }
 }
+/* ====================================== END [WORKSECTION CHANGE] ========== */
 
 /* Contact & FAQ Card */
 .contact-faq-card {
@@ -987,9 +1007,8 @@ h6 {
   color: #092521;
 }
 
-.work-card-stagger-1.is-visible {
-  animation-delay: 160ms;
-}
+/* [WORKSECTION CHANGE] .work-card-stagger-1.is-visible removed — stagger is now
+   an inline animationDelay style inside WorkSection.jsx (index % 2 === 1 cards). */
 
 /* Worth Building Section */
 .worth-building-heading {

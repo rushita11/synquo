@@ -1,5 +1,23 @@
 import { useRef, useState, useEffect } from 'react';
 
+// ─── [WORKSECTION CHANGE] Animate.css CDN loader ─────────────────────────────
+// Dynamically injects animate.css from CDN once when WorkSection mounts.
+// Kept here so it is self-contained in this file; your friend's sections are
+// NOT touched. If animate.css is later npm-installed project-wide, swap this
+// hook for:  import 'animate.css';  at the top of this file and delete the hook.
+function useAnimateCss() {
+  useEffect(() => {
+    const LINK_ID = 'animate-css-cdn';
+    if (document.getElementById(LINK_ID)) return; // already injected — skip
+    const link = document.createElement('link');
+    link.id = LINK_ID;
+    link.rel = 'stylesheet';
+    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
+    document.head.appendChild(link);
+  }, []);
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 // const workBgImg = '/assets/images/work-bg.png';
 const aminoImg = '/assets/images/amino.png';
 const t3 = '/assets/images/t3.png';
@@ -54,13 +72,23 @@ const workProjects = [
   },
 ];
 
+// ─── [WORKSECTION CHANGE] WorkProjectCard — animate__fadeInUp on scroll ───────
+// Replaced the old custom wow-card-animate / wowFadeInUp keyframe approach with
+// Animate.css  animate__fadeInUp  triggered by IntersectionObserver.
+// Changes vs original:
+//   • isVisible state drives  animate__animated + animate__fadeInUp  classes
+//   • stagger delay (160 ms for right-column cards) applied via inline style
+//   • card starts invisible (opacity:0) via  work-card-hidden  CSS class
+//     (see index.css section marked [WORKSECTION CHANGE])
+//   • Removed: wow-card-animate, work-card-stagger-1 class references
 /**
  * WorkProjectCard Component
- * Implements WOW.js style scroll reveal: smoothly slides from bottom to top with opacity fade in
- * once scrolled into view, with staggered delay across grid columns.
+ * Triggers animate__fadeInUp from Animate.css once the card scrolls into view.
+ * Right-column cards (odd index) get a 160 ms stagger delay.
  */
 function WorkProjectCard({ project, index }) {
   const cardRef = useRef(null);
+  // ── [WORKSECTION CHANGE] state now drives animate.css classes ──
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -72,12 +100,16 @@ function WorkProjectCard({ project, index }) {
         if (entry.isIntersecting) {
           setIsVisible(true);
         } else {
-          setIsVisible(false);
+          setIsVisible(false); // reset so animation re-triggers on scroll back
         }
       },
       {
         root: null,
-        rootMargin: '0px 0px -50px 0px',
+        // [WORKSECTION CHANGE] Staggered per-row rootMargin:
+        //   Row 1 (index 0-1) → 650px: fires when "WORK" heading first appears (clouds visible, cards not yet)
+        //   Row 2 (index 2-3) → 300px: fires mid-scroll into the section
+        //   Row 3 (index 4-5) → 0px:   fires when card hits viewport edge
+        rootMargin: `0px 0px ${index < 2 ? '650px' : index < 4 ? '300px' : '0px'} 0px`,
         threshold: 0.1,
       }
     );
@@ -86,12 +118,22 @@ function WorkProjectCard({ project, index }) {
     return () => observer.disconnect();
   }, []);
 
+  // ── [WORKSECTION CHANGE] stagger delay for right-column cards ──
+  const staggerStyle = index % 2 === 1 ? { animationDelay: '160ms' } : {};
+
   return (
     <a
       ref={cardRef}
       href={project.link || '#work'}
-      className={`work-project-card wow-card-animate group block bg-white overflow-hidden ${index % 2 === 1 ? 'work-card-stagger-1' : ''
-        } ${isVisible ? 'is-visible' : ''}`}
+      // ── [WORKSECTION CHANGE] class list updated:
+      //    • removed:  wow-card-animate  work-card-stagger-1  (old custom anim)
+      //    • added:    work-card-hidden  (keeps card invisible before trigger)
+      //                animate__animated + animate__fadeInUp  (when visible)
+      className={`work-project-card group block bg-white overflow-hidden${isVisible
+        ? ' animate__animated animate__fadeInUp'
+        : ' work-card-hidden'
+        }`}
+      style={isVisible ? staggerStyle : {}}
       aria-label={`View ${project.title} project`}
     >
       {/* Project Preview Image */}
@@ -127,15 +169,19 @@ function WorkProjectCard({ project, index }) {
     </a>
   );
 }
+// ─────────────────────────────────────────────────────────────────────────────
 
 /**
  * WorkSection Component
  * Displays selected projects on a Roman/Greek sky background card (work-bg.png).
  * - Full-width card layout (removed max-w-[1674px])
  * - Fluid typography scaling smoothly between minimum and maximum bounds
- * - WOW.js bottom-to-top scroll reveal animation for every project card
+ * - animate__fadeInUp scroll reveal animation for every project card
  */
 export default function WorkSection() {
+  // ── [WORKSECTION CHANGE] load animate.css from CDN ──
+  useAnimateCss();
+
   const headingRef = useRef(null);
   const [headingVisible, setHeadingVisible] = useState(false);
 
@@ -153,7 +199,7 @@ export default function WorkSection() {
       },
       {
         root: null,
-        rootMargin: '0px 0px -40px 0px',
+        rootMargin: '0px 0px 350px 0px',
         threshold: 0.15,
       }
     );
@@ -180,7 +226,7 @@ export default function WorkSection() {
           WORK
         </h2>
 
-        {/* 2-Column Projects Grid with WOW.js Bottom-to-Top scroll animation */}
+        {/* 2-Column Projects Grid — animate__fadeInUp scroll animation */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
           {workProjects.map((project, index) => (
             <WorkProjectCard
