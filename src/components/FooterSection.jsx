@@ -8,7 +8,6 @@ const footerInstaImg = '/assets/images/footer-insta.png';
 const footerLinkedinImg = '/assets/images/footer-linkin.png';
 const footerTwitterImg = '/assets/images/footer-twitter.png';
 
-// Social links configuration with 3D mechanical keycap styling
 const SOCIAL_LINKS = [
   {
     id: 'mail',
@@ -139,14 +138,12 @@ export default function FooterSection() {
       aria-label="Site Footer"
     >
       <div className={`footer-card ${isCardVisible ? 'is-visible' : ''} ${isLogoVisible ? 'is-fully-visible' : ''}`}>
-        {/* Top Centered: 3D Keyboard Social Dock */}
         <div className="footer-social-dock" role="navigation" aria-label="Social media keycaps">
           {SOCIAL_LINKS.map((item) => (
             <a
               key={item.id}
               href={item.href}
               className={`footer-social-key key-${item.keyType}`}
-              // title={item.name}
               aria-label={item.name}
             >
               <img

@@ -64,7 +64,7 @@
 
 html {
   scroll-behavior: auto;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -79,7 +79,7 @@ body {
   min-height: 100vh;
   font-family: var(--font-family-sans);
   color: var(--color-cream-heading);
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -691,6 +691,538 @@ h6 {
   }
 }
 
+/* ================= STORYTELLING PINNED SCROLL SECTION ================= */
+.storytelling-track {
+  position: relative;
+  /* 4 slides pinned scroll track: comfortable scroll distance for 4 slides */
+  height: 280vh;
+  box-sizing: border-box;
+}
+
+.storytelling-sticky-container {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 15px;
+  width: 100%;
+  height: calc(100vh - 30px);
+  height: calc(100dvh - 30px);
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.storytelling-canvas-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius-hero);
+  overflow: hidden;
+  background-image: url('/assets/images/what-we-bg-img.png');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: space-between; */
+  padding: clamp(20px, 3.2vh, 40px) clamp(16px, 3vw, 40px) 0 clamp(16px, 3vw, 40px);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-sizing: border-box;
+}
+
+.storytelling-header {
+  text-align: center;
+  width: 100%;
+  z-index: 5;
+}
+
+.storytelling-main-title {
+  font-family: var(--font-family-serif);
+  font-size: clamp(28px, 3.8vw, 54px);
+  line-height: 1.15;
+  font-weight: 400;
+  color: #17332c;
+  letter-spacing: -0.015em;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+.storytelling-showcase-box {
+  position: relative;
+  width: 100%;
+  max-width: 1060px;
+  min-height: 380px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: clamp(65px, 9.5vh, 105px);
+  box-sizing: border-box;
+  z-index: 5;
+}
+
+.storytelling-slide {
+  grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: clamp(20px, 3.5vw, 48px);
+  padding: clamp(20px, 3vw, 42px);
+  box-sizing: border-box;
+}
+
+/* Inactive slides */
+.storytelling-slide.is-inactive {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0s 0.4s;
+}
+
+.storytelling-slide.is-inactive.is-prev {
+  animation: slideExitToTop 0.45s cubic-bezier(0.3, 0, 0.2, 1) forwards;
+}
+
+.storytelling-slide.is-inactive.is-next {
+  animation: slideExitToBottom 0.45s cubic-bezier(0.3, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideExitToTop {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -45px, 0) scale(0.96);
+    visibility: hidden;
+  }
+}
+
+@keyframes slideExitToBottom {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 45px, 0) scale(0.96);
+    visibility: hidden;
+  }
+}
+
+/* Active slide */
+.storytelling-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  z-index: 2;
+  animation: slideEnterFromBottom 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideEnterFromBottom {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 36px, 0) scale(0.97);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* --- Left Column: Image Animation --- */
+.storytelling-visual-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.storytelling-img-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-height: 330px;
+}
+
+.storytelling-slide-img {
+  max-width: 100%;
+  max-height: 320px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.05));
+}
+
+.storytelling-slide.is-inactive .storytelling-slide-img {
+  opacity: 0;
+}
+
+.storytelling-slide.is-active .storytelling-slide-img {
+  animation: slideImgEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.06s both;
+}
+
+@keyframes slideImgEntrance {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 45px, 0) scale(0.88);
+    filter: blur(6px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* --- Right Column: Text & Heading Animations --- */
+.storytelling-content-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 490px;
+}
+
+.storytelling-slide-heading {
+  font-family: var(--font-family-serif);
+  font-size: clamp(26px, 3.2vw, 46px);
+  line-height: 1.18;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  margin: 0 0 16px 0;
+}
+
+.storytelling-slide.is-inactive .storytelling-slide-heading {
+  opacity: 0;
+}
+
+.storytelling-slide.is-active .storytelling-slide-heading {
+  animation: slideHeadingEntrance 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+}
+
+@keyframes slideHeadingEntrance {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Highlighted Selection Bounding Box */
+.highlight-box-wrapper {
+  display: inline-block;
+  position: relative;
+  padding: 1px 7px;
+  margin: 0 4px;
+  line-height: 1.1;
+  vertical-align: baseline;
+}
+
+.highlight-box-backdrop {
+  position: absolute;
+  inset: -3px -6px;
+  background-color: var(--highlight-bg);
+  border: 1px solid var(--highlight-border);
+  border-radius: 4px;
+  transform-origin: left center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.storytelling-slide.is-inactive .highlight-box-backdrop {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.storytelling-slide.is-active .highlight-box-backdrop {
+  animation: highlightWipeReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.26s both;
+}
+
+@keyframes highlightWipeReveal {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.highlight-box-text {
+  position: relative;
+  z-index: 2;
+  color: inherit;
+}
+
+/* Selection Handles (Figma / Illustrator bounding box handles) */
+.selection-handle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #ffffff;
+  border: 1.2px solid var(--highlight-border);
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.storytelling-slide.is-inactive .selection-handle {
+  opacity: 0;
+}
+
+.storytelling-slide.is-active .selection-handle:not(.handle-top-stem):not(.handle-top-dot) {
+  animation: handleCornerPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s both;
+}
+
+@keyframes handleCornerPop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.handle-tl {
+  top: -5px;
+  left: -8px;
+}
+
+.handle-tr {
+  top: -5px;
+  right: -8px;
+}
+
+.handle-bl {
+  bottom: -5px;
+  left: -8px;
+}
+
+.handle-br {
+  bottom: -5px;
+  right: -8px;
+}
+
+.handle-top-stem {
+  top: -19px;
+  left: 50%;
+  width: 1px;
+  height: 15px;
+  background: var(--highlight-border);
+  border: none;
+  border-radius: 0;
+}
+
+.storytelling-slide.is-active .handle-top-stem {
+  transform-origin: bottom center;
+  animation: handleStemRise 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 0.42s both;
+}
+
+@keyframes handleStemRise {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scaleY(1);
+  }
+}
+
+.handle-top-dot {
+  top: -22px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.storytelling-slide.is-active .handle-top-dot {
+  animation: handleDotPop 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 0.46s both;
+}
+
+@keyframes handleDotPop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* Description Text */
+.storytelling-slide-desc {
+  font-family: var(--font-family-sans);
+  font-size: clamp(13px, 1.05vw, 15px);
+  line-height: 1.65;
+  color: #4a5568;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.storytelling-slide.is-inactive .storytelling-slide-desc {
+  opacity: 0;
+}
+
+.storytelling-slide.is-active .storytelling-slide-desc {
+  animation: slideDescEntrance 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+}
+
+@keyframes slideDescEntrance {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Bottom Interactive Folder Tabs Navigation */
+.storytelling-folder-tabs {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(60px, 10vh, 105px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.storytelling-tab-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  transition: transform 0.25s ease;
+}
+
+.storytelling-tab-btn:hover {
+  transform: translateY(-4px);
+}
+
+.storytelling-tab-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 24px;
+  height: 4px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.95);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.storytelling-tab-btn.is-tab-active::after {
+  transform: translateX(-50%) scale(1);
+}
+
+.storytelling-tab-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: -2px;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .storytelling-track {
+    height: 260vh;
+  }
+
+  .storytelling-sticky-container {
+    top: 10px;
+    height: calc(100vh - 20px);
+    height: calc(100dvh - 20px);
+    min-height: 520px;
+    padding: 0;
+  }
+
+  .storytelling-canvas-card {
+    height: 100%;
+    min-height: 520px;
+    padding: 16px 12px 0 12px;
+  }
+
+  .storytelling-showcase-box {
+    margin-bottom: 70px;
+    min-height: 330px;
+    border-radius: 16px;
+  }
+
+  .storytelling-slide {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px 14px;
+    text-align: center;
+  }
+
+  .storytelling-img-frame {
+    max-height: 160px;
+  }
+
+  .storytelling-slide-img {
+    max-height: 150px;
+  }
+
+  .storytelling-content-col {
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .storytelling-slide-heading {
+    font-size: clamp(20px, 5.2vw, 28px);
+    margin-bottom: 10px;
+  }
+
+  .storytelling-slide-desc {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}
+
 /* ================= MANIFESTO SECTION (RED BANNER & SKETCH LOOPS) ================= */
 .manifesto-card {
   position: relative;
@@ -864,78 +1396,190 @@ h6 {
 }
 
 /* Work Section Card & Project Items */
+
 .work-card {
+
   background-image: url('/assets/images/work-bg.png');
+
   background-size: cover;
+
   background-position: center bottom;
+
   /* background-color: #6BB2DC; */
+
 }
+
+
 
 /* ================= WOW.JS BOTTOM-TO-TOP SCROLL ANIMATIONS ================= */
+
 @keyframes wowFadeInUp {
+
   0% {
+
     opacity: 0;
+
     transform: translate3d(0, 90px, 0);
+
   }
 
+
+
   100% {
+
     opacity: 1;
+
     transform: translate3d(0, 0, 0);
+
   }
+
 }
+
+
 
 @keyframes wowHeadingInUp {
+
   0% {
+
     opacity: 0;
+
     transform: translate3d(0, 45px, 0);
+
   }
+
+
 
   100% {
+
     opacity: 1;
+
     transform: translate3d(0, 0, 0);
+
   }
+
 }
 
-.wow-card-animate {
-  opacity: 0;
-  transform: translate3d(0, 90px, 0);
-  will-change: opacity, transform;
-}
 
-.wow-card-animate.is-visible {
-  animation: wowFadeInUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
+
+/* =============================================================================
+
+   [WORKSECTION CHANGE] - Bhavya  |  animate__fadeInUp scroll reveal for cards
+
+   -------------------------------------------------------------------------------
+
+   Replaced old  wow-card-animate / wowFadeInUp  with Animate.css
+
+   animate__fadeInUp (CDN-loaded via hook in WorkSection.jsx).
+
+
+
+   REMOVED: .wow-card-animate + .wow-card-animate.is-visible (old custom anim)
+
+   REMOVED: .work-card-stagger-1.is-visible (now inline style in WorkSection.jsx)
+
+   REMOVED: .work-project-card.is-visible:hover (gating removed, see below)
+
+   KEPT:    .wow-heading-animate / .wow-heading-animate.is-visible (heading)
+
+   ADDED:   .work-card-hidden         - invisible before scroll trigger
+
+   ADDED:   .work-project-card.animate__animated - Animate.css duration override
+
+   ADDED:   .work-project-card:hover  - hover lift without .is-visible gate
+
+
+
+   Your friend's sections: ZERO lines outside this block were changed.
+
+   ============================================================================= */
+
+
+
+/* Heading animation - unchanged from original */
 
 .wow-heading-animate {
+
   opacity: 0;
+
   transform: translate3d(0, 45px, 0);
+
   will-change: opacity, transform;
+
 }
+
+
 
 .wow-heading-animate.is-visible {
+
   animation: wowHeadingInUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
 }
+
+
+
+/* [WORKSECTION CHANGE] Cards invisible before IntersectionObserver fires */
+
+.work-card-hidden {
+
+  opacity: 0;
+
+}
+
+
+
+/* [WORKSECTION CHANGE] Control Animate.css animation duration for work cards */
+
+.work-project-card.animate__animated {
+
+  --animate-duration: 0.85s;
+
+}
+
+
+
+/* [WORKSECTION CHANGE] Hover lift - no longer gated on .is-visible */
 
 .work-project-card {
+
   text-decoration: none;
+
   box-shadow: 0 10px 30px -8px rgba(9, 37, 33, 0.12);
+
   transition: box-shadow 0.35s ease, transform 0.35s ease;
+
 }
 
-.work-project-card.is-visible:hover {
+
+
+.work-project-card:hover {
+
   box-shadow: 0 24px 50px -10px rgba(9, 37, 33, 0.28);
+
   transform: translate3d(0, -6px, 0);
+
 }
+
+
+
+/* [WORKSECTION CHANGE] Reduced-motion: show cards instantly */
 
 @media (prefers-reduced-motion: reduce) {
 
-  .wow-card-animate,
+  .work-card-hidden,
+
   .wow-heading-animate {
+
     opacity: 1 !important;
+
     transform: none !important;
+
     animation: none !important;
+
   }
+
 }
+
+/* ====================================== END [WORKSECTION CHANGE] ========== */
 
 /* Contact & FAQ Card */
 .contact-faq-card {

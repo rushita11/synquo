@@ -2,6 +2,7 @@ import { useState } from 'react';
 import LoadingScreen from './components/LoadingScreen';
 import HeroSection from './components/HeroSection';
 import LogoSliderSection from './components/LogoSliderSection';
+import WhatWeBringSection from './components/WhatWeBringSection';
 import ManifestoSection from './components/ManifestoSection';
 import WorkSection from './components/WorkSection';
 import WorthBuildingSection from './components/WorthBuildingSection';
@@ -32,6 +33,7 @@ export default function App() {
       <main id="main-content">
         <HeroSection />
         <LogoSliderSection />
+        <WhatWeBringSection />
         <ManifestoSection />
         <WorkSection />
         <WorthBuildingSection />
