@@ -496,7 +496,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={formik.isSubmitting}
-            className="contact-submit-btn w-[170px] sm:w-[190px] py-3.5 bg-[#601228] hover:bg-[#4a0d1e] active:bg-[#380a16] text-[#F9EED6] rounded-[4px] shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="contact-submit-btn w-[170px] sm:w-[190px] p-3.5 bg-[#601228] hover:bg-[#4a0d1e] active:bg-[#380a16] text-[#F9EED6] shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {formik.isSubmitting ? 'Submitting...' : 'Submit'}
           </button>

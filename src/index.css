@@ -1106,6 +1106,7 @@ h6 {
   width: 103%;
   max-width: initial;
   z-index: 9;
+  pointer-events: none;
 }
 
 @media (min-width: 640px) {
@@ -1139,107 +1140,133 @@ h6 {
 
 /* 3D Keyboard Social Dock */
 .footer-social-dock {
+  position: relative;
+  z-index: 20;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  background: rgba(18, 18, 20, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transform: translate3d(0, 30px, 0) scale(0.95);
+  justify-content: center;
+  gap: 14px;
+  padding: 6px 12px;
+  margin-top: auto;
+  margin-bottom: clamp(18px, 2.8vw, 32px);
+  transform: translate3d(0, 90px, 0);
   opacity: 0;
-  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.25s,
-    opacity 0.7s ease 0.25s;
+  transition: transform 1.25s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 
-.footer-card.is-visible .footer-social-dock {
-  transform: translate3d(0, 0, 0) scale(1);
+.footer-card.is-fully-visible .footer-social-dock {
+  transform: translate3d(0, 0, 0);
   opacity: 1;
 }
 
 @media (max-width: 640px) {
   .footer-social-dock {
-    gap: 5px;
-    padding: 8px 10px;
-    border-radius: 12px;
+    gap: 10px;
+    padding: 4px 8px;
+    margin-bottom: 16px;
   }
 }
 
-/* 3D Keycap Styling matching mechanical keys */
-.footer-keycap {
+/* 3D Keycap with socket base (social-bg) and pressing keycap (footer-mail) */
+.footer-social-key {
   position: relative;
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  width: 60px;
+  height: 60px;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.2s ease;
-  will-change: transform, box-shadow;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.25) inset,
-    0 -2px 0 rgba(0, 0, 0, 0.35) inset,
-    0 4px 6px rgba(0, 0, 0, 0.45),
-    0 6px 12px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  user-select: none;
+  outline: none;
+  border-radius: 12px;
+}
+
+.footer-key-socket {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5));
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+  will-change: transform, filter;
+}
+
+.footer-key-cap {
+  position: relative;
+  z-index: 2;
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+  will-change: transform, filter;
+}
+
+/* Hover effect: background socket becomes BIG, inner mail icon becomes SMALL */
+.footer-social-key:hover .footer-key-socket {
+  transform: scale(1.18);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.7));
+}
+
+.footer-social-key:hover .footer-key-cap {
+  transform: scale(0.82);
+  filter: brightness(1.1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+}
+
+.key-mail:hover .footer-key-cap {
+  filter: brightness(1.12) drop-shadow(0 0 10px rgba(234, 67, 53, 0.6));
+}
+
+.key-instagram:hover .footer-key-cap {
+  filter: brightness(1.12) drop-shadow(0 0 10px rgba(225, 48, 108, 0.6));
+}
+
+.key-linkedin:hover .footer-key-cap {
+  filter: brightness(1.12) drop-shadow(0 0 10px rgba(10, 102, 194, 0.65));
+}
+
+.key-twitter:hover .footer-key-cap {
+  filter: brightness(1.12) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+/* Click / Active effect: tactile mechanical press feedback */
+.footer-social-key:active .footer-key-socket {
+  transform: scale(1.06);
+  transition-duration: 0.1s;
+}
+
+.footer-social-key:active .footer-key-cap {
+  transform: scale(0.72);
+  filter: brightness(0.92);
+  transition-duration: 0.1s;
+}
+
+/* Keyboard accessibility */
+.footer-social-key:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 4px;
+}
+
+.footer-social-key:focus-visible .footer-key-socket {
+  transform: scale(1.18);
+}
+
+.footer-social-key:focus-visible .footer-key-cap {
+  transform: scale(0.82);
 }
 
 @media (max-width: 640px) {
-  .footer-keycap {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
+  .footer-social-key {
+    width: 38px;
+    height: 38px;
   }
-}
-
-.footer-keycap:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.12);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.35) inset,
-    0 -2px 0 rgba(0, 0, 0, 0.35) inset,
-    0 7px 12px rgba(0, 0, 0, 0.5),
-    0 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-.footer-keycap:active {
-  transform: translateY(2px);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.15) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.45) inset,
-    0 2px 3px rgba(0, 0, 0, 0.4);
-}
-
-/* Keycap Themes */
-.keycap-gmail {
-  background: linear-gradient(180deg, #ea4335 0%, #c5221f 100%);
-}
-
-.keycap-instagram {
-  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
-}
-
-.keycap-linkedin {
-  background: linear-gradient(180deg, #0a66c2 0%, #004182 100%);
-}
-
-.keycap-x {
-  background: linear-gradient(180deg, #2b2b2b 0%, #111111 100%);
-}
-
-.footer-key-divider {
-  width: 1px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.15);
-  margin-left: 2px;
-  margin-right: 2px;
 }
 
 /* Giant Synquo Footer Brand Logo */
@@ -1249,7 +1276,7 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: auto;
+  margin-top: 0;
   transform: translate3d(0, 90px, 0);
   opacity: 0;
   transition: transform 1.25s cubic-bezier(0.16, 1, 0.3, 1),
